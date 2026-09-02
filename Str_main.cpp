@@ -29,14 +29,17 @@ int main()
         cout<<endl<<s3<< " != " << s4 << " = " <<(s3!=s4)<<endl;
         cout<<"strcmp(s4,s3) :"<<strcmp(s4,s3)<<endl;
         cout<<"strncmp(s4,s3,2) :"<<strncmp(s4,s3,2)<<endl;
+	if(strstr(s4,s3))
         cout<<"strstr(s4, s3) :"<<strstr(s4,s3)<<endl;
-        cout<<"strchr(s4,'c') :"<<strchr(s4,'c')<<endl;
-        cout<<"strrchr(s4,'c') :"<<strrchr(s4,'c')<<endl;
+        if(strchr(s4,'c'))
+	cout<<"strchr(s4,'c') :"<<strchr(s4,'c')<<endl;
+        if(strrchr(s4,'c'))
+	cout<<"strrchr(s4,'c') :"<<strrchr(s4,'c')<<endl;
         cout<<"strrev(s4) :"<<strrev(s4)<<endl;
         strupper(s1);
         strcpy(s2,s1);
         cout<<"strupper(s1) :"<<s1<<endl<<"strcpy(s2,s1) is done"<<endl<<"string s2 : "<<s2<<endl;
         strlower(s1);
         strncpy(s2,s1,2);
-        cout<<"strlower(s1) :"<<s1<<endl<<"strncpy(s2,s1,2) is done"<<endl<<"string s2 : "<<s2<<endl;
+        cout<<"strlower(s1) :"<<s1<<endl<<"strncpy(s2,s1,2) is done"<<endl<<"string s2 : "<<s2<<endl<<endl;
 }

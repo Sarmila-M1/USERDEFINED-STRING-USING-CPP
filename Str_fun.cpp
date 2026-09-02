@@ -19,54 +19,57 @@ STRING::~STRING()
 	if(s!=0)
 		delete[] s;
 }
-void STRING::operator [](const char *a)
+STRING STRING::operator [](const char *a)
 {
         if(s)
                 delete s;
         s=new char[strlen(s)+1];
         strcpy(s,a);
+	return *this;
 }
-void STRING::operator [](STRING &a)
+STRING STRING::operator [](STRING &a)
 {
         strcpy(*this,a);
+	return *this;
 }
-void STRING::operator = (STRING &a)
+STRING STRING::operator = (STRING &a)
 {
         strcpy(*this,a);
+	return *this;
 }
 
-void STRING::operator = (const char *a)
+STRING STRING::operator = (const char *a)
 {
         if(s)
                 delete s;
         s=new char[strlen(a)+1];
         strcpy(s,a);
+	return *this;
 }
 
-int STRING::operator > (STRING& a)
+bool STRING::operator > (STRING& a)
 {
         return (strcmp(s,a.s)>0);
 }
 
-int STRING::operator < (STRING& a)
+bool STRING::operator < (STRING& a)
 {
         return (strcmp(s,a.s)<0);
 }
-int STRING::operator >= (STRING& a)
+bool STRING::operator >= (STRING& a)
 {
         return (strcmp(s,a.s)>=0);
 }
-
-int STRING::operator <= (STRING& a)
+bool STRING::operator <= (STRING& a)
 {
         return (strcmp(s,a.s)<=0);
 }
 
-int STRING::operator == (STRING& a)
+bool STRING::operator == (STRING& a)
 {
         return (strcmp(s,a.s)==0);
 }
-int STRING::operator != (STRING& a)
+bool STRING::operator != (STRING& a)
 {
         return (strcmp(s,a.s)!=0);
 }
@@ -81,11 +84,38 @@ STRING& STRING::operator +(STRING &a)
 
 istream& operator >> (istream& in,STRING &a)
         {
-                if(a.s==0)
-                        a.s=new char[20];
-                in.getline(a.s,20);
+                char c;
+                int count=0;
+                ofstream file;
+                file.open("strfile",ios::out|ios::trunc);
+                while(1)
+                {
+			cin.get(c);
+                        count++;
+                        file.put(c);
+                        if(c=='\n')
+                                break;
+                }
+		cout<<endl;
+                file.close();
+                ifstream fo;
+                fo.open("strfile");
+                if(a.s)
+                {
+                        delete[] a.s;
+                        a.s=0;
+                }
+                a.s=new char[count];
+                for(int i=0;i<count-1;i++)
+                {
+                        fo.get(c);
+                        a.s[i]=c;
+                }
+                fo.close();
+                a.s[count-1]='\0';
                 return in;
-        }
+	
+	}
 
 ostream& operator << (ostream& out,STRING &a)
 {
@@ -93,51 +123,55 @@ ostream& operator << (ostream& out,STRING &a)
         return out;
 }
 
-void strcpy(STRING &a,STRING &b)
+STRING strcpy(STRING &a,STRING &b)
 {
         if(a.s)
         delete a.s;
         a.s=0;
         a.s=new char[strlen(b.s)+1];
         strcpy(a.s,b.s);
+	return a;
 }
-void strncpy(char *a,const char *b,int c)
+char * strncpy(char *a,const char *b,int c)
 {
         int i=0;
-        for(i=0;(b[i]&&(i<c));i++)
+        for(;(b[i]&&(i<c));i++)
         {
                 a[i]=b[i];
         }
         a[i]='\0';
+	return a;
 }
-void strncpy(STRING &a,STRING &b,int c)
+STRING strncpy(STRING &a,STRING &b,int c)
 {
         if(a.s)
         delete a.s;
         a.s=0;
         a.s=new char[strlen(b.s)+1];
         strncpy(a.s,b.s,c);
+	return a;
 }
 int strlen(const char *a)
 {
         int i=0;
-        for(i=0;a[i];i++)
+        for(;a[i];i++)
         {}
         return i;
 }
-void strcpy(char *a,const char *b)
+char * strcpy(char *a,const char *b)
 {
         int i=0;
-        for(i=0;b[i];i++)
+        for(;b[i];i++)
         {
                 a[i]=b[i];
         }
         a[i]='\0';
+	return a;
 }
 int strcmp(const char *a,const char *b)
 {
         int i=0;
-        for(i;(a[i]&&b[i]);i++)
+        for(;(a[i]&&b[i]);i++)
         {
                 if(a[i]!=b[i])
                         break;
@@ -152,7 +186,7 @@ int strcmp(STRING &a,STRING &b)
 int strncmp(const char *a,const char *b,int c)
 {
         int i=0;
-        for(i;((a[i]&&b[i])&&(i<=c));i++)
+        for(;((a[i]&&b[i])&&(i<=c));i++)
         {
                 if(a[i]!=b[i])
                         break;
@@ -177,7 +211,7 @@ char * strcat(const char *a,const char *b)
         int lenb=strlen(b);
         char *c=new char[lena+lenb+1];
         int i=0;
-        for(i=0;a[i];i++)
+        for(;a[i];i++)
         {
                 c[i]=a[i];
         }
@@ -232,7 +266,7 @@ char * strrev(STRING &a)
 char *strupper(char *a)
 {
         int i=0;
-        for(i;a[i];i++)
+        for(;a[i];i++)
         {
                 if((a[i]>='a')&&(a[i]<='z'))
                         a[i]=a[i]^32;
@@ -246,7 +280,7 @@ char * strupper(STRING &a)
 char *strlower(char *a)
 {
         int i=0;
-        for(i;a[i];i++)
+        for(;a[i];i++)
         {
                 if((a[i]>='A')&&(a[i]<='Z'))
                         a[i]=a[i]^32;

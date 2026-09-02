@@ -1,4 +1,5 @@
 #include<iostream>
+#include<fstream>
 using namespace std;
 class STRING
 {
@@ -10,8 +11,8 @@ class STRING
         ~STRING();
         friend istream& operator >> (istream&,STRING &);
         friend ostream& operator << (ostream&,STRING &);
-        friend void strcpy(STRING &a,STRING &b);
-        friend void strncpy(STRING &a,STRING &b,int c);
+        friend STRING strcpy(STRING &a,STRING &b);
+        friend STRING strncpy(STRING &a,STRING &b,int c);
         friend int strcmp(STRING &a,STRING &b);
         friend int strncmp(STRING &a,STRING &b,int c);
         friend char* strcat(STRING &a,STRING &b);
@@ -25,24 +26,24 @@ class STRING
         friend char* strchr(STRING &a,char b);
         friend char* strrchr(STRING &a,char b);
 
-        void operator = (STRING &a);
-        void operator = (const char *a);
-        int operator < (STRING& a);
-        int operator > (STRING& a);
-        int operator <= (STRING& a);
-        int operator >= (STRING& a);
-        int operator != (STRING &a);
-        int operator == (STRING &a);
+        STRING operator = (STRING &a);
+        STRING operator = (const char *a);
+        bool operator < (STRING& a);
+        bool operator > (STRING& a);
+        bool operator <= (STRING& a);
+        bool operator >= (STRING& a);
+        bool operator != (STRING &a);
+        bool operator == (STRING &a);
         STRING& operator + (STRING &a);
-        void operator [] (STRING &a);
-        void operator [] (const char *a);
+        STRING operator [] (STRING &a);
+        STRING operator [] (const char *a);
 
 };
 int strlen(const char *a);
-void strcpy(char *a,const char *b);
-void strcpy(STRING &a,STRING &b);
-void strncpy(char *a,const char *b,int c);
-void strncpy(STRING &a,STRING &b,int c);
+char * strcpy(char *a,const char *b);
+STRING strcpy(STRING &a,STRING &b);
+char* strncpy(char *a,const char *b,int c);
+STRING strncpy(STRING &a,STRING &b,int c);
 int strcmp(const char *a,const char *b);
 int strcmp(STRING &a,STRING &b);
 int strcmp(const char *a,const char *b,int c);
