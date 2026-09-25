@@ -7,6 +7,17 @@ int main()
         STRING s1,s2,s3,s4;
         cout<<"Enter string s1 : ";
         cin >> s1;
+	cout<<"s4=s3=s2=s1 is done\n";
+	s4=s3=s2=s1;
+	cout<<"string s1 is : ";
+        cout<<s1;
+        cout<<"\nstring s2 is : ";
+        cout<<s2;
+        cout<<"\nstring s3 is : ";
+        cout<<s3;
+        cout<<"\nstring s4 is : ";
+        cout<<s4;
+
         cout<<"s2[s1] is done\n";
         s2[s1];
         cout<<"s3=s1 is done\n";

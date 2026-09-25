@@ -26,15 +26,15 @@ class STRING
         friend char* strchr(STRING &a,char b);
         friend char* strrchr(STRING &a,char b);
 
-        STRING operator = (STRING &a);
-        STRING operator = (const char *a);
+        STRING& operator = (STRING &a);
+        STRING& operator = (const char *a);
         bool operator < (STRING& a);
         bool operator > (STRING& a);
         bool operator <= (STRING& a);
         bool operator >= (STRING& a);
         bool operator != (STRING &a);
         bool operator == (STRING &a);
-        STRING& operator + (STRING &a);
+        char * operator + (STRING &a);
         STRING operator [] (STRING &a);
         STRING operator [] (const char *a);
 

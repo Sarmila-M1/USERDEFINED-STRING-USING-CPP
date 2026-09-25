@@ -2,7 +2,7 @@
 
 STRING::STRING()
 {
-	 s=new char[20];
+	 s=0;
 }
 STRING::STRING(const char *a)
 {
@@ -24,21 +24,20 @@ STRING STRING::operator [](const char *a)
         if(s)
                 delete s;
         s=new char[strlen(s)+1];
-        strcpy(s,a);
-	return *this;
+       	return *this;
 }
 STRING STRING::operator [](STRING &a)
 {
         strcpy(*this,a);
 	return *this;
 }
-STRING STRING::operator = (STRING &a)
+STRING& STRING::operator = (STRING &a)
 {
         strcpy(*this,a);
 	return *this;
 }
 
-STRING STRING::operator = (const char *a)
+STRING& STRING::operator = (const char *a)
 {
         if(s)
                 delete s;
@@ -73,12 +72,12 @@ bool STRING::operator != (STRING& a)
 {
         return (strcmp(s,a.s)!=0);
 }
-STRING& STRING::operator +(STRING &a)
+char * STRING::operator +(STRING &a)
 {
-        static STRING n;
-        strcpy(n.s,s);
-        strcat(n,a);
-        return n;
+        char *cre=0;
+        cre=strcat(s,a.s);
+	cout<<cre<<strlen(cre)<<endl;
+        return cre;
 }
 
 
@@ -209,7 +208,7 @@ char * strcat(const char *a,const char *b)
 {
         int lena=strlen(a);
         int lenb=strlen(b);
-        char *c=new char[lena+lenb+1];
+        char *c=c=new char[lena+lenb+1];
         int i=0;
         for(;a[i];i++)
         {
